@@ -7,7 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8EEDCE86217D22360005FB4D /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8EEDCE85217D22360005FB4D /* main.cpp */; };
+		8E89D9FE21A567A70060C3CE /* Fluid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8E89D9F921A567A70060C3CE /* Fluid.cpp */; };
+		8E89D9FF21A567A70060C3CE /* Setup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8E89D9FB21A567A70060C3CE /* Setup.cpp */; };
+		8E89DA0021A567A70060C3CE /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8E89D9FD21A567A70060C3CE /* main.cpp */; };
+		8EEDCE99217EF96B0005FB4D /* libGLEW.2.1.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EEDCE98217EF96B0005FB4D /* libGLEW.2.1.0.dylib */; };
+		8EEDCE9B217EF9770005FB4D /* libglfw.3.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EEDCE9A217EF9770005FB4D /* libglfw.3.2.dylib */; };
+		8EEDCE9D217EF97E0005FB4D /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EEDCE9C217EF97E0005FB4D /* OpenGL.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -23,8 +28,15 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		8E89D9F921A567A70060C3CE /* Fluid.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Fluid.cpp; path = Fluid/Fluid.cpp; sourceTree = SOURCE_ROOT; };
+		8E89D9FA21A567A70060C3CE /* Fluid.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Fluid.hpp; path = Fluid/Fluid.hpp; sourceTree = SOURCE_ROOT; };
+		8E89D9FB21A567A70060C3CE /* Setup.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Setup.cpp; path = Fluid/Setup.cpp; sourceTree = SOURCE_ROOT; };
+		8E89D9FC21A567A70060C3CE /* Setup.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Setup.hpp; path = Fluid/Setup.hpp; sourceTree = SOURCE_ROOT; };
+		8E89D9FD21A567A70060C3CE /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = Fluid/main.cpp; sourceTree = SOURCE_ROOT; };
 		8EEDCE82217D22360005FB4D /* Fluid */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Fluid; sourceTree = BUILT_PRODUCTS_DIR; };
-		8EEDCE85217D22360005FB4D /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		8EEDCE98217EF96B0005FB4D /* libGLEW.2.1.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libGLEW.2.1.0.dylib; path = ../../../../../usr/local/Cellar/glew/2.1.0/lib/libGLEW.2.1.0.dylib; sourceTree = "<group>"; };
+		8EEDCE9A217EF9770005FB4D /* libglfw.3.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libglfw.3.2.dylib; path = ../../../../../usr/local/Cellar/glfw/3.2.1/lib/libglfw.3.2.dylib; sourceTree = "<group>"; };
+		8EEDCE9C217EF97E0005FB4D /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -32,17 +44,34 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8EEDCE9D217EF97E0005FB4D /* OpenGL.framework in Frameworks */,
+				8EEDCE9B217EF9770005FB4D /* libglfw.3.2.dylib in Frameworks */,
+				8EEDCE99217EF96B0005FB4D /* libGLEW.2.1.0.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8E89D9F821A5678A0060C3CE /* Fluid */ = {
+			isa = PBXGroup;
+			children = (
+				8E89D9FD21A567A70060C3CE /* main.cpp */,
+				8E89D9F921A567A70060C3CE /* Fluid.cpp */,
+				8E89D9FA21A567A70060C3CE /* Fluid.hpp */,
+				8E89D9FB21A567A70060C3CE /* Setup.cpp */,
+				8E89D9FC21A567A70060C3CE /* Setup.hpp */,
+			);
+			name = Fluid;
+			path = "New Group";
+			sourceTree = "<group>";
+		};
 		8EEDCE79217D22360005FB4D = {
 			isa = PBXGroup;
 			children = (
-				8EEDCE84217D22360005FB4D /* Fluid */,
+				8E89D9F821A5678A0060C3CE /* Fluid */,
 				8EEDCE83217D22360005FB4D /* Products */,
+				8EEDCE97217EF96B0005FB4D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -54,12 +83,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		8EEDCE84217D22360005FB4D /* Fluid */ = {
+		8EEDCE97217EF96B0005FB4D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				8EEDCE85217D22360005FB4D /* main.cpp */,
+				8EEDCE9C217EF97E0005FB4D /* OpenGL.framework */,
+				8EEDCE9A217EF9770005FB4D /* libglfw.3.2.dylib */,
+				8EEDCE98217EF96B0005FB4D /* libGLEW.2.1.0.dylib */,
 			);
-			path = Fluid;
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -118,7 +149,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8EEDCE86217D22360005FB4D /* main.cpp in Sources */,
+				8E89D9FE21A567A70060C3CE /* Fluid.cpp in Sources */,
+				8E89D9FF21A567A70060C3CE /* Setup.cpp in Sources */,
+				8E89DA0021A567A70060C3CE /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -238,6 +271,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				HEADER_SEARCH_PATHS = /usr/local/include/;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/usr/local/Cellar/glew/2.1.0/lib,
+					/usr/local/Cellar/glfw/3.2.1/lib,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -246,6 +285,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				HEADER_SEARCH_PATHS = /usr/local/include/;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/usr/local/Cellar/glew/2.1.0/lib,
+					/usr/local/Cellar/glfw/3.2.1/lib,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
