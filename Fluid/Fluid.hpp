@@ -43,7 +43,9 @@ struct Fluid
         sizeX = x;
         sizeY = y;
     }
-    void ApplyForce(GLfloat* vertices, GLuint count, glm::vec2 _velocity, const glm::vec2& p, const glm::vec2& r){
+    
+    void ApplyForce(GLfloat* vertices, GLuint count, glm::vec2 _velocity, const glm::vec2& p, const glm::vec2& r)
+    {
         GLuint vbo;
         velocity[0].bind();
         size_t size = 2 * count * sizeof(GLfloat);
@@ -54,6 +56,8 @@ struct Fluid
         forceShader.uniform2f("size", sizeX, sizeY);
         forceShader.uniform2f("t_r", r.x, r.y);
         forceShader.uniform2f("t_p", p.x, p.y);
+        forceShader.uniform2f("t_s", 1.0f, 1.0f);
+        
         forceShader.uniform2f("force", _velocity.x, _velocity.y);
 
         glBindVertexArray(forceVAO);
@@ -67,6 +71,7 @@ struct Fluid
         
         glBindFramebuffer(GL_FRAMEBUFFER, fbo.fbo);
         
+        glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
         glClear(GL_COLOR_BUFFER_BIT);
         glDrawArrays(GL_TRIANGLE_FAN, 0, count);
         glBindVertexArray(0);
@@ -86,21 +91,20 @@ struct Fluid
         velocityShader.uniform2f("size", sizeX, sizeY);
         velocityShader.uniform2f("t_r", 1.0f, 0.0f);
         velocityShader.uniform2f("t_p", 0.0f, 0.0f);
+        velocityShader.uniform2f("t_s", 1.0f, 1.0f);
         fbo.bind(velocity[0]);
         blit(fbo.fbo);
         std::swap(velocity[0], velocity[1]);
         
         color[0].bind();
-        //Texture::bind0();
         colorShader.bind();
         colorShader.uniform1i("velocities", velocity[1].id);
         colorShader.uniform2f("size", sizeX, sizeY);
         colorShader.uniform2f("t_r", 1.0f, 0.0f);
         colorShader.uniform2f("t_p", 0.0f, 0.0f);
+        colorShader.uniform2f("t_s", 1.0f, 1.0f);
         fbo.bind(color[0]);
         blit(fbo.fbo);
-        //bind(color[0].texture);
-        //blit(0);
         std::swap(color[0], color[1]);
     }
     

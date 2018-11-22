@@ -36,7 +36,6 @@ const char *Fluid::colorFShader = (char*)R"(
 out vec4 color;
 uniform vec2 size;
 uniform sampler2D velocities;
-uniform sampler2D colors;
 
 void main()
 {

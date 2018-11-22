@@ -8,6 +8,42 @@
 
 #include "Setup.hpp"
 
+
+const char *QuadVShader = (char*)R"(
+
+#version 410 core
+
+layout (location = 0) in vec2 position;
+
+uniform vec2 t_p;
+uniform vec2 t_r;
+uniform vec2 t_s;
+
+void main()
+{
+    vec2 pos = vec2(t_p.x + t_s.x * (position.x * t_r.x - position.y * t_r.y), t_p.y + t_s.y * (position.x * t_r.y + position.y * t_r.x));
+    gl_Position = vec4(pos, 0.0, 1.0);
+}
+
+)";
+
+const char *QuadFShader = (char*)R"(
+
+#version 410 core
+
+out vec4 color;
+
+uniform vec2 size;
+uniform sampler2D T;
+
+void main()
+{
+    vec2 coord = gl_FragCoord.xy / size;
+    color = texture(T, coord);
+}
+
+)";
+
 void InitQuad()
 {
     QuadShader.init(&QuadVShader, &QuadFShader);
@@ -34,7 +70,6 @@ void blit(GLuint fbo)
 {
     glBindFramebuffer(GL_FRAMEBUFFER, fbo);
     glBindVertexArray(QuadVAO);
-    //glViewport(0, 0, 800, 800);
     glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
     glClear(GL_COLOR_BUFFER_BIT);
     glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
@@ -78,35 +113,3 @@ void GenPoly(float* vs, int n, float s, int offset)
     }
 }
 
-const char *QuadVShader = (char*)R"(
-
-#version 410 core
-
-layout (location = 0) in vec2 position;
-uniform vec2 t_p;
-uniform vec2 t_r;
-
-void main()
-{
-    vec2 pos = vec2(t_p.x + position.x * t_r.x - position.y * t_r.y, t_p.y + position.x * t_r.y + position.y * t_r.x);
-    gl_Position = vec4(pos, 0.0, 1.0);
-}
-
-)";
-
-const char *QuadFShader = (char*)R"(
-
-#version 410 core
-
-out vec4 color;
-
-uniform vec2 size;
-uniform sampler2D T;
-
-void main()
-{
-    vec2 coord = gl_FragCoord.xy / size;
-    color = texture(T, coord);
-}
-
-)";

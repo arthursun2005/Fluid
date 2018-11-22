@@ -44,6 +44,7 @@ static const GLfloat Quad[] =
     2.0f, 2.0f
 };
 */
+
 struct Shader
 {
     GLuint program;
@@ -170,23 +171,27 @@ struct FrameBuffer
         assert(glCheckFramebufferStatus(GL_FRAMEBUFFER) == GL_FRAMEBUFFER_COMPLETE);
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
     }
-    static void bind(GLuint x)
-    {
-        glBindFramebuffer(GL_FRAMEBUFFER, 0);
-        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, x, 0);
-        assert(glCheckFramebufferStatus(GL_FRAMEBUFFER) == GL_FRAMEBUFFER_COMPLETE);
-    }
 };
 
 inline void checkShader(GLuint x){
-    int status, length;
-    glGetProgramiv(x, GL_LINK_STATUS, &status);
-    glGetProgramiv(x, GL_INFO_LOG_LENGTH, &length);
-    if (length > 0) {
+    int status;
+    glGetShaderiv(x, GL_COMPILE_STATUS, &status);
+    if (status == GL_FALSE) {
+        int length;
+        glGetShaderiv(x, GL_INFO_LOG_LENGTH, &length);
         GLchar log[length];
         glGetProgramInfoLog(x, length, nullptr, log);
         printf("%s \n", log);
     }
+}
+
+inline glm::ivec2 getTexSize(GLuint i)
+{
+    glm::ivec2 x;
+    glBindTexture(GL_TEXTURE_2D, i);
+    glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_WIDTH, &x.x);
+    glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_HEIGHT, &x.y);
+    return x;
 }
 
 #endif /* Setup_hpp */

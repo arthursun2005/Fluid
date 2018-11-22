@@ -32,21 +32,19 @@ float pvs[2 * ns];
 
 Shader s;
 
-glm::vec2 arg(float a)
-{
+inline glm::vec2 arg(float a) {
     return glm::vec2(cosf(a), sinf(a));
 }
 
 void Run()
 {
     fluid.solve();
-    Texture::bind0();
     QuadShader.bind();
     QuadShader.uniform1i("T", fluid.texture());
-    QuadShader.uniform2f("size", WIDTH, HEIGHT);
+    QuadShader.uniform2f("size", 2.0f * WIDTH, 2.0f * HEIGHT);
     QuadShader.uniform2f("t_r", arg(0.0f));
     QuadShader.uniform2f("t_p", 0.0f, 0.0f);
-    FrameBuffer::bind(0);
+    QuadShader.uniform2f("t_s", 1.0f, 1.0f);\
     blit(0);
 }
 
@@ -59,10 +57,10 @@ void MousePressed(GLFWwindow* window, int button, int action, int mods)
     fluid.ApplyForce(pvs, ns, glm::vec2(0.0f, 0.03f), glm::vec2(mouseX, mouseY), arg(0.0f));
 }
 
-void Norm(double *x, double *y, double a, double b)
+void Norm(double *x, double *y)
 {
-    *x = a * (*x * 2.0f/WIDTH - 1.0f);
-    *y = b * (*y * 2.0f/HEIGHT - 1.0f);
+    *x = 2.0f * ((*x * 1.0f/WIDTH) - 0.5f);
+    *y = 2.0f * ((-*y * 1.0f/HEIGHT) + 0.5f);
 }
 
 void OnResize(GLFWwindow* window, int width, int height)
@@ -84,13 +82,14 @@ int main(int argc, const char * argv[]) {
     glfwMakeContextCurrent(window);
     glewInit();
     InitQuad();
-    fluid.init(WIDTH, HEIGHT);
+    fluid.init(2.0f * WIDTH, 2.0f * HEIGHT);
     glfwSetWindowSizeCallback(window, OnResize);
     glfwSetMouseButtonCallback(window, MousePressed);
     GenPoly(pvs, ns, 0.4f, 0);
     do {        
         glfwGetCursorPos(window, &mouseX, &mouseY);
-        Norm(&mouseX, &mouseY, 1.0f, -1.0f);
+        Norm(&mouseX, &mouseY);
+        
         
         Run();
         
